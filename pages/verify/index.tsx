@@ -16,14 +16,14 @@ const Verify: NextPage<IVerify> = ({ status }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
-  const { uid, token } = ctx.query;
+  const { userID, token } = ctx.query;
 
   // Check type of uid and token
   let id = null;
   let emailToken = null;
 
-  if (typeof uid === "string") {
-    id = uid;
+  if (typeof userID === "string") {
+    id = userID;
   }
 
   if (typeof token === "string") {
