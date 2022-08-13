@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+
+@layer base {
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-gradient-to-b from-primary-400 via-primary-400 to-neutral-800 text-neutral-100 h-full;
+  }
+
+  #__next {
+    @apply h-full;
+  }
+}
+
+@layer components {
+  .container {
+    --max-width: 1600px;
+    --padding: 1rem;
+    width: min(var(--max-width), 100% - (var(--padding) * 2));
+    margin-inline: auto;
+  }
+}
