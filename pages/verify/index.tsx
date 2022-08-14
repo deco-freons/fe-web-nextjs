@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import MailResponse from "../../components/MailResponse";
 import {
+  Response,
   Status,
   VerifyErrorResponse,
   VerifyResponse,
@@ -8,16 +9,54 @@ import {
 import apiClient from "../../network/apiClient";
 import axios, { AxiosError } from "axios";
 import isNumeric from "../../helpers/isNumeric";
+import { useEffect, useState } from "react";
 
 interface IVerify {
-  status: Status;
-  message: string;
+  userId: string | number;
+  emailToken: string;
 }
 
-const Verify: NextPage<IVerify> = ({ status, message }) => {
+const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
+  const [response, setResponse] = useState<Response>({
+    status: "LOADING",
+    message: "",
+  });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    apiClient
+      .post<VerifyResponse>(
+        "/auth/verify",
+        {
+          userID: userId,
+          token: emailToken,
+        },
+        { signal }
+      )
+      .then((res) => {
+        const data = res.data;
+        const message = data.message;
+        setResponse({ status: "SUCCESS", message });
+      })
+      .catch((error) => {
+        let message = "";
+        if (axios.isAxiosError(error)) {
+          const axiosError = error as AxiosError<VerifyErrorResponse>;
+          message =
+            axiosError.response?.data?.message ?? "Something Went Wrong";
+        }
+        setResponse({ status: "ERROR", message });
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, [emailToken, userId]);
+
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <MailResponse status={status} message={message} />
+      <MailResponse status={response.status} message={response.message} />
     </div>
   );
 };
@@ -26,15 +65,14 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   const { userID, token } = ctx.query;
 
   // Check type of uid and token
-  let id = null;
-  let emailToken = null;
-  let message = "";
+  let userId: number | string = "";
+  let emailToken = "";
 
   if (typeof userID === "string") {
     if (isNumeric(userID)) {
-      id = Number(userID);
+      userId = Number(userID);
     } else {
-      id = userID;
+      userId = userID;
     }
   }
 
@@ -42,28 +80,8 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
     emailToken = token;
   }
 
-  // Request to backend
-  // Set Status of response to display correct component (email verified, already verified, error)
-  let status: Status;
-  try {
-    const res = await apiClient.post<VerifyResponse>("/auth/verify", {
-      userID: id,
-      token: emailToken,
-    });
-    const data = res.data;
-    message = data.message;
-    status = "SUCCESS";
-  } catch (error) {
-    // CHECK IF ALREADY VERIFIED ERROR
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError<VerifyErrorResponse>;
-      message = axiosError.response?.data?.message ?? "Something Went Wrong";
-    }
-    status = "ERROR";
-  }
-
   return {
-    props: { status, message },
+    props: { userId, emailToken },
   };
 };
 

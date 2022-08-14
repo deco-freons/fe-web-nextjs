@@ -1,4 +1,4 @@
-export type Status = "SUCCESS" | "ERROR";
+export type Status = "SUCCESS" | "ERROR" | "LOADING" | "INITIAL";
 
 export type Color = "primary" | "inverse";
 
@@ -11,3 +11,8 @@ export type VerifyErrorResponse = {
   message: string;
   statusCode: number;
 };
+
+export type Response = {
+  status: Status
+  message: string
+}

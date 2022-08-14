@@ -1,6 +1,8 @@
 import { Status } from "../configs/types";
-import Success from "../public/mail-success.svg";
-import Error from "../public/mail-error.svg";
+import MailSuccess from "../public/mail-success.svg";
+import MailError from "../public/mail-error.svg";
+import MailLoading from "../public/envelope.svg";
+import Loading from "../public/loading.svg";
 interface IMailResponse {
   status: Status;
   message: string;
@@ -12,8 +14,11 @@ const MailResponse = ({ status, message }: IMailResponse) => {
 
   return (
     <div className="flex flex-col items-center gap-y-8">
-      {status === "SUCCESS" && <Success className={className} />}
-      {status === "ERROR" && <Error className={className} />}
+      {status === "SUCCESS" && <MailSuccess className={className} />}
+      {status === "ERROR" && <MailError className={className} />}
+      {status === "LOADING" && <MailLoading className={className} />}
+
+      {status === "LOADING" && <Loading className="w-12 h-12 animate-spin" />}
       <p className={textClassName}>{message}</p>
       {status === "SUCCESS" && (
         <a
