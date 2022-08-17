@@ -7,9 +7,10 @@ import {
   VerifyResponse,
 } from "../../configs/types";
 import apiClient from "../../network/apiClient";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import isNumeric from "../../helpers/isNumeric";
 import { useEffect, useState } from "react";
+import verifyUserId from "../../helpers/verifyUserId";
 
 interface IVerify {
   userId: string | number;
@@ -65,16 +66,9 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   const { userID, token } = ctx.query;
 
   // Check type of uid and token
-  let userId: number | string = "";
-  let emailToken = "";
 
-  if (typeof userID === "string") {
-    if (isNumeric(userID)) {
-      userId = Number(userID);
-    } else {
-      userId = userID;
-    }
-  }
+  let emailToken = "";
+  const userId = verifyUserId(userID);
 
   if (typeof token === "string") {
     emailToken = token;
