@@ -11,6 +11,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import isNumeric from "../../helpers/isNumeric";
 import { useEffect, useState } from "react";
 import verifyUserId from "../../helpers/verifyUserId";
+import verifyToken from "../../helpers/verifyToken";
 
 interface IVerify {
   userId: string | number;
@@ -66,13 +67,8 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   const { userID, token } = ctx.query;
 
   // Check type of uid and token
-
-  let emailToken = "";
   const userId = verifyUserId(userID);
-
-  if (typeof token === "string") {
-    emailToken = token;
-  }
+  const emailToken = verifyToken(token);
 
   return {
     props: { userId, emailToken },
