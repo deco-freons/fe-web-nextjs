@@ -1,17 +1,12 @@
 import { GetServerSideProps, NextPage } from "next";
 import MailResponse from "../../components/MailResponse";
-import {
-  Response,
-  Status,
-  VerifyErrorResponse,
-  VerifyResponse,
-} from "../../configs/types";
-import apiClient from "../../network/apiClient";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import isNumeric from "../../helpers/isNumeric";
+import { VerifyResponseData } from "../../configs/types";
 import { useEffect, useState } from "react";
 import verifyUserId from "../../helpers/verifyUserId";
 import verifyToken from "../../helpers/verifyToken";
+import ApiService from "../../network/apiService";
+import errorHandler from "../../network/errorHandler";
+import { IVerifyAccountResponseError } from "../../configs/interfaces";
 
 interface IVerify {
   userId: string | number;
@@ -19,37 +14,31 @@ interface IVerify {
 }
 
 const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
-  const [response, setResponse] = useState<Response>({
+  const [response, setResponse] = useState<VerifyResponseData>({
     status: "LOADING",
     message: "",
   });
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
-    apiClient
-      .post<VerifyResponse>(
-        "/auth/verify",
-        {
-          userID: userId,
-          token: emailToken,
-        },
-        { signal }
-      )
-      .then((res) => {
-        const data = res.data;
-        const message = data.message;
-        setResponse({ status: "SUCCESS", message });
-      })
-      .catch((error) => {
-        let message = "";
-        if (axios.isAxiosError(error)) {
-          const axiosError = error as AxiosError<VerifyErrorResponse>;
-          message =
-            axiosError.response?.data?.message ?? "Something Went Wrong";
-        }
+
+    const verifyAccount = async (signal: AbortSignal) => {
+      try {
+        const response = await ApiService.verifyAccount(
+          { userID: userId, token: emailToken },
+          { signal: signal }
+        );
+        setResponse({ status: "SUCCESS", message: response.data.message });
+      } catch (error) {
+        const errData = errorHandler<IVerifyAccountResponseError>(error);
+        const message = errData?.message
+          ? errData.message
+          : "Something Went Wrong";
         setResponse({ status: "ERROR", message });
-      });
+      }
+    };
+
+    verifyAccount(controller.signal);
 
     return () => {
       controller.abort();

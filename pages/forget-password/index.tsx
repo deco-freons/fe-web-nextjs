@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
-import { ChangeEvent, MouseEvent, useState } from "react";
-import Eye from "../../public/eye.svg";
-import EyeSlash from "../../public/eye-slash.svg";
+import { ChangeEvent, useState } from "react";
 import PasswordInput from "../../components/forms/PasswordInput";
 import Button from "../../components/Button";
 
