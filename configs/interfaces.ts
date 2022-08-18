@@ -10,17 +10,21 @@ export interface IVerifyAccountResponse {
   statusCode: number;
 }
 
-export interface IVerifyAccountResponseError {
-  message: string;
-  statusCode: number;
-}
 
 // Forget Password
-export interface IPasswordInputData {
-  value: string;
-  error: string;
-}
 export interface IForgetPasswordInputs {
-  password: IPasswordInputData;
-  confirm_password: IPasswordInputData;
+  password: string;
+  confirm_password: string;
+}
+
+export interface IForgestPasswordRequest {
+  userID: number | string
+  password: string;
+  confirmPassword: string;
+  token: string
+}
+
+export interface IForgetPasswordResponse {
+  message: string;
+  statusCode: number
 }

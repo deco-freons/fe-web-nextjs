@@ -12,6 +12,7 @@ const PasswordInput = ({
   label,
   onChange,
   value,
+
   errorMsg,
   ...rest
 }: IPasswordInput) => {
@@ -21,36 +22,43 @@ const PasswordInput = ({
     setIsHidden((prevState) => !prevState);
   };
 
+  const iconStyle =
+    "absolute right-1.5 top-2 flex items-center h-5 w-5 cursor-pointer select-none text-neutral-900";
+
   return (
     <div className="text-neutral-800">
       {label && (
-        <label htmlFor={name} className="block text-xs font-bold">
+        <label htmlFor={name} className="block text-xs font-bold group">
           {label}
         </label>
       )}
 
       <div className="relative mt-2">
-        <span
-          className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer select-none text-neutral-900"
-          onClick={toggleHidden}
-        >
-          {isHidden ? <EyeSlash /> : <Eye />}
-        </span>
+        {isHidden ? (
+          <EyeSlash className={iconStyle} onClick={toggleHidden} />
+        ) : (
+          <Eye className={iconStyle} onClick={toggleHidden} />
+        )}
+
         <input
           id={name}
           type={isHidden ? "password" : "text"}
           name={name}
-          className="py-1.5 rounded-md pl-2 pr-8 bg-primary-400 bg-opacity-20 focus:outline focus:outline-primary-400 focus:ring focus:ring-primary-400 focus:ring-opacity-60 w-full"
+          className="peer py-1.5 rounded-md pl-2 pr-8 w-full bg-primary-400 bg-opacity-20
+           border border-transparent focus:outline-none focus:border focus:border-primary-400 focus:ring focus:ring-primary-400 focus:ring-opacity-30
+           invalid:border-error-400 invalid:ring invalid:ring-error-400 invalid:ring-opacity-30 
+           focus:invalid:border-error-400 focus:invalid:ring focus:invalid:ring-error-400 focus:invalid:ring-opacity-30"
           onChange={onChange}
           value={value}
+          onInput={(e) => {
+            e.currentTarget.setCustomValidity("");
+          }}
           {...rest}
         />
-      </div>
-      {errorMsg && (
-        <p className="text-xxs break-words whitespace-pre-wrap mt-1.5 text-error-400">
+        <p className=" text-xs break-words whitespace-pre-wrap mt-1.5 text-error-400 hidden peer-invalid:block">
           {errorMsg}
         </p>
-      )}
+      </div>
     </div>
   );
 };

@@ -12,8 +12,8 @@ const Button = ({
 }: IButton) => {
   const baseButtonStyle = `rounded-md px-2 py-1 font-bold ${
     colorType === "primary"
-      ? "bg-primary-400 text-neutral-100"
-      : "bg-neutral-100 text-primary-400"
+      ? "bg-primary-400 text-neutral-100 disabled:bg-neutral-700"
+      : "bg-neutral-100 text-primary-400 disabled:bg-neutral-700 disabled:text-neutral-100"
   }`;
   return (
     <button className={`${baseButtonStyle} ${className || ""} `} {...rest}>

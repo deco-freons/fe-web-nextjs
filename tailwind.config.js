@@ -11,8 +11,9 @@ module.exports = {
       sans: ['"Nunito Sans"', ...defaultTheme.fontFamily.sans]
     },
     colors: {
+       transparent: 'transparent',
       error: {
-        "400": "#FF0000"
+        "400": "#FC1313"
       },
       primary: {
         '400': "#0AA1DD",
