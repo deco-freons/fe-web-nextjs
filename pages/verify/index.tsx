@@ -62,6 +62,7 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   return {
     props: { userId, emailToken },
   };
+  
 };
 
 export default Verify;

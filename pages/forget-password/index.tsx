@@ -1,28 +1,26 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { ChangeEvent, useState } from "react";
 import PasswordInput from "../../components/forms/PasswordInput";
 import Button from "../../components/Button";
+import { IForgetPasswordInputs } from "../../configs/interfaces";
+import verifyUserId from "../../helpers/verifyUserId";
+import verifyToken from "../../helpers/verifyToken";
 
-interface PasswordInputData {
-  value: string;
-  error: string;
+
+type ForgetPasswordInputKeys = keyof IForgetPasswordInputs;
+interface IForgetPassword {
+  userId: string | number;
+  emailToken: string;
 }
-interface ForgetPasswordInputs {
-  password: PasswordInputData;
-  confirm_password: PasswordInputData;
-}
-
-type Data = keyof ForgetPasswordInputs;
-
-const ForgetPassword: NextPage = () => {
-  const [data, setData] = useState<ForgetPasswordInputs>({
+const ForgetPassword: NextPage<IForgetPassword> = () => {
+  const [data, setData] = useState<IForgetPasswordInputs>({
     password: { value: "", error: "" },
     confirm_password: { value: "", error: "" },
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const name = e.target.name as Data;
+    const name = e.target.name as ForgetPasswordInputKeys; 
 
     setData((prevData) => {
       let error = "";
@@ -52,7 +50,7 @@ const ForgetPassword: NextPage = () => {
           error = "Confirm password cannot be empty";
         } else if (e.target.validity.patternMismatch) {
           error =
-            "Confirm password must match Password akjsdfhnkajhdf asfkajsd fhdskjfhsdkjf dskjfh dksjfhs";
+            "Confirm password must match Password"; 
         }
       }
 
@@ -94,6 +92,20 @@ const ForgetPassword: NextPage = () => {
       </div>
     </div>
   );
+};
+
+
+export const getServerSideProps: GetServerSideProps<IForgetPassword> = async (ctx) => {
+  const { userID, token } = ctx.query;
+
+  // Check type of uid and token
+  const userId = verifyUserId(userID);
+  const emailToken = verifyToken(token);
+
+  return {
+    props: { userId, emailToken },
+  };
+  
 };
 
 export default ForgetPassword;
