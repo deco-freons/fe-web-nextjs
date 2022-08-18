@@ -1,5 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import {
+  IForgestPasswordRequest,
+  IForgetPasswordResponse,
   IVerifyAccountRequest,
   IVerifyAccountResponse,
 } from "../configs/interfaces";
@@ -16,6 +18,13 @@ const ApiService = {
       { ...config }
     );
     return response;
+  },
+  forgetPassword: async (
+    data: IForgestPasswordRequest,
+    config?: AxiosRequestConfig
+  ) => {
+    const response = await apiClient.patch<IForgetPasswordResponse>("/auth/forget-password", {...data}, {...config})
+    return response
   },
 };
 export default ApiService;

@@ -1,12 +1,12 @@
 import { GetServerSideProps, NextPage } from "next";
 import MailResponse from "../../components/MailResponse";
-import { VerifyResponseData } from "../../configs/types";
+import { ResponseData } from "../../configs/types";
 import { useEffect, useState } from "react";
 import verifyUserId from "../../helpers/verifyUserId";
 import verifyToken from "../../helpers/verifyToken";
 import ApiService from "../../network/apiService";
 import errorHandler from "../../network/errorHandler";
-import { IVerifyAccountResponseError } from "../../configs/interfaces";
+import { IForgetPasswordResponse } from "../../configs/interfaces";
 
 interface IVerify {
   userId: string | number;
@@ -14,7 +14,7 @@ interface IVerify {
 }
 
 const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
-  const [response, setResponse] = useState<VerifyResponseData>({
+  const [response, setResponse] = useState<ResponseData>({
     status: "LOADING",
     message: "",
   });
@@ -30,7 +30,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
         );
         setResponse({ status: "SUCCESS", message: response.data.message });
       } catch (error) {
-        const errData = errorHandler<IVerifyAccountResponseError>(error);
+        const errData = errorHandler<IForgetPasswordResponse>(error);
         const message = errData?.message
           ? errData.message
           : "Something Went Wrong";
@@ -62,6 +62,7 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   return {
     props: { userId, emailToken },
   };
+  
 };
 
 export default Verify;
