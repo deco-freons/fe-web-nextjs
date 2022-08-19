@@ -84,17 +84,17 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-8">
-      <div className="bg-neutral-100 p-5 rounded-md text-neutral-800 shadow-xl w-full sm:w-80">
-        <h1 className="text-xl font-extrabold text-center capitalize">
-          Reset your password
+      <div className="bg-neutral-100 px-7 pb-10 sm:px-10 pt-5 rounded-[40px] sm:pb-14 text-neutral-800 shadow-xl w-full sm:w-[426px]">
+        <h1 className="text-3xl font-bold capitalize text-primary-400">
+          Reset password
         </h1>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-4 text-black mt-5"
+          className="flex flex-col gap-y-3 text-black mt-3"
         >
           <PasswordInput
             name="password"
-            label="Password"
+            label="New password"
             value={data.password}
             onChange={handleChange}
             placeholder="Password"
@@ -105,7 +105,7 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
           />
 
           <PasswordInput
-            label="Confirm Password"
+            label="Confirm new password"
             name="confirm_password"
             value={data.confirm_password}
             onChange={handleChange}
@@ -113,7 +113,11 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
             pattern={data.password}
             errorMsg={"Confirm password must match Password"}
           />
-          <Button type="submit" disabled={isButtonDisabled}>
+          <Button
+            type="submit"
+            disabled={isButtonDisabled}
+            className="text-xl mt-10"
+          >
             Submit
           </Button>
         </form>
