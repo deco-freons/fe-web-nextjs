@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { ChangeEvent, useState, FormEvent } from "react";
-import PasswordInput from "../../components/forms/PasswordInput";
+import PasswordInput from "../../components/Forms/PasswordInput";
 import Button from "../../components/Button";
 import {
   IForgetPasswordInputs,
