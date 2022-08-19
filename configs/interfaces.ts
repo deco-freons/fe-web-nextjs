@@ -1,4 +1,3 @@
-
 // Verify Account
 export interface IVerifyAccountRequest {
   userID: number | string;
@@ -18,13 +17,13 @@ export interface IForgetPasswordInputs {
 }
 
 export interface IForgestPasswordRequest {
-  userID: number | string
+  userID: number | string;
   password: string;
   confirmPassword: string;
-  token: string
+  token: string;
 }
 
 export interface IForgetPasswordResponse {
   message: string;
-  statusCode: number
+  statusCode: number;
 }

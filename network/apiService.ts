@@ -26,5 +26,9 @@ const ApiService = {
     const response = await apiClient.patch<IForgetPasswordResponse>("/auth/forget-password", {...data}, {...config})
     return response
   },
+  resendVerifyAccount: async (data: IVerifyAccountRequest, config?: AxiosRequestConfig) => {
+    const response = await apiClient.post<IVerifyAccountResponse>("/auth/verify/request", {...data}, {...config})
+    return response
+  }
 };
 export default ApiService;
