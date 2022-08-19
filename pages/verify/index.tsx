@@ -6,7 +6,11 @@ import verifyUserId from "../../helpers/verifyUserId";
 import verifyToken from "../../helpers/verifyToken";
 import ApiService from "../../network/apiService";
 import errorHandler from "../../network/errorHandler";
-import { IForgetPasswordResponse } from "../../configs/interfaces";
+import {
+  IForgetPasswordResponse,
+  IVerifyAccountResponse,
+} from "../../configs/interfaces";
+import Button from "../../components/Button";
 
 interface IVerify {
   userId: string | number;
@@ -18,6 +22,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
     status: "LOADING",
     message: "",
   });
+  const [showButton, setShowButton] = useState<boolean>(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -34,6 +39,9 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
         const message = errData?.message
           ? errData.message
           : "Something Went Wrong";
+        if (errData?.statusCode === 401) {
+          setShowButton(true);
+        }
         setResponse({ status: "ERROR", message });
       }
     };
@@ -45,9 +53,36 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
     };
   }, [emailToken, userId]);
 
+  const handleReverify = async () => {
+    try {
+      setResponse({ status: "LOADING", message: "" });
+      setShowButton(false);
+      const response = await ApiService.resendVerifyAccount({
+        token: emailToken,
+        userID: userId,
+      });
+      setResponse({ status: "SUCCESS", message: response.data.message });
+    } catch (error) {
+      const errData = errorHandler<IVerifyAccountResponse>(error);
+      const message = errData?.message
+        ? errData.message
+        : "Something Went Wrong";
+      setResponse({ status: "ERROR", message });
+    }
+  };
+
   return (
     <div className="h-full flex flex-col justify-center items-center">
       <MailResponse status={response.status} message={response.message} />
+      {showButton && (
+        <Button
+          colorType="inverse"
+          className="mt-12 text-xl py-3 px-3"
+          onClick={handleReverify}
+        >
+          Re-verify Account
+        </Button>
+      )}
     </div>
   );
 };
@@ -62,7 +97,6 @@ export const getServerSideProps: GetServerSideProps<IVerify> = async (ctx) => {
   return {
     props: { userId, emailToken },
   };
-  
 };
 
 export default Verify;
