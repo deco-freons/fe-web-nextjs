@@ -22,7 +22,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
     status: "LOADING",
     message: "",
   });
-  const [showButton, setShowButton] = useState<boolean>(false);
+  const [showButton, setShowButton] = useState<boolean>(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -77,7 +77,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
       {showButton && (
         <Button
           colorType="inverse"
-          className="mt-12 text-xl py-3 px-3"
+          className="mt-12 text-xl uppercase"
           onClick={handleReverify}
         >
           Re-verify Account

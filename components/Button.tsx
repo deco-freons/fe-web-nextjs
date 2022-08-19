@@ -10,7 +10,7 @@ const Button = ({
   children,
   ...rest
 }: IButton) => {
-  const baseButtonStyle = `rounded-md px-2 py-1 font-bold ${
+  const baseButtonStyle = `rounded-md py-2.5 px-4 font-bold ${
     colorType === "primary"
       ? "bg-primary-400 text-neutral-100 disabled:bg-neutral-700"
       : "bg-neutral-100 text-primary-400 disabled:bg-neutral-700 disabled:text-neutral-100"

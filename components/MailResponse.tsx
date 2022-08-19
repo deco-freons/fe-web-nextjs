@@ -22,8 +22,8 @@ const MailResponse = ({ status, message }: IMailResponse) => {
       <p className={textClassName}>{message}</p>
       {status === "SUCCESS" && (
         <a
-          href="decofreonsfe://app/test"
-          className="rounded-md px-4 py-2 font-bold bg-neutral-100 text-primary-400 uppercase"
+          href="decofreonsfe://app/login"
+          className="rounded-md px-4 py-2.5 font-bold bg-neutral-100 text-primary-400 uppercase"
         >
           Back To NAMA_APP
         </a>
