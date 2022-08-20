@@ -3,6 +3,7 @@ import MailSuccess from "../public/mail-success.svg";
 import MailError from "../public/mail-error.svg";
 import MailLoading from "../public/envelope.svg";
 import Loading from "../public/loading.svg";
+import LinkButton from "./Buttons/LinkButton";
 interface IMailResponse {
   status: Status;
   message: string;
@@ -18,15 +19,19 @@ const MailResponse = ({ status, message }: IMailResponse) => {
       {status === "ERROR" && <MailError className={className} />}
       {status === "LOADING" && <MailLoading className={className} />}
 
-      {status === "LOADING" && <Loading className="w-12 h-12 animate-spin" />}
+      {status === "LOADING" && (
+        <Loading className="w-12 h-12 animate-spin text-neutral-100" />
+      )}
       <p className={textClassName}>{message}</p>
+
       {status === "SUCCESS" && (
-        <a
+        <LinkButton
           href="decofreonsfe://app/test"
-          className="rounded-md px-4 py-2 font-bold bg-neutral-100 text-primary-400 uppercase"
+          colorType="inverse"
+          className="px-4"
         >
           Back To NAMA_APP
-        </a>
+        </LinkButton>
       )}
     </div>
   );

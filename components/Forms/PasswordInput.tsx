@@ -23,17 +23,17 @@ const PasswordInput = ({
   };
 
   const iconStyle =
-    "absolute right-1.5 top-2 flex items-center h-5 w-5 cursor-pointer select-none text-neutral-900";
+    "absolute right-2.5 top-3.5 flex items-center h-5 w-5 cursor-pointer select-none text-neutral-700";
 
   return (
     <div className="text-neutral-800">
       {label && (
-        <label htmlFor={name} className="block text-xs font-bold group">
+        <label htmlFor={name} className="block font-bold group">
           {label}
         </label>
       )}
 
-      <div className="relative mt-2">
+      <div className="relative mt-3">
         {isHidden ? (
           <EyeSlash className={iconStyle} onClick={toggleHidden} />
         ) : (
@@ -44,7 +44,7 @@ const PasswordInput = ({
           id={name}
           type={isHidden ? "password" : "text"}
           name={name}
-          className="peer py-1.5 rounded-md pl-2 pr-8 w-full bg-primary-400 bg-opacity-20
+          className="peer font-semibold py-2.5 rounded-md pl-2 pr-9 w-full bg-primary-400 bg-opacity-20
            border border-transparent focus:outline-none focus:border focus:border-primary-400 focus:ring focus:ring-primary-400 focus:ring-opacity-30
            invalid:border-error-400 invalid:ring invalid:ring-error-400 invalid:ring-opacity-30 
            focus:invalid:border-error-400 focus:invalid:ring focus:invalid:ring-error-400 focus:invalid:ring-opacity-30"
