@@ -3,7 +3,7 @@ import { useState } from "react";
 import verifyUserId from "../../helpers/verifyUserId";
 import verifyToken from "../../helpers/verifyToken";
 import { ResponseData, Status } from "../../configs/types";
-import ForgetPasswordForm from "../../components/Form/ForgetPasswordForm";
+import ForgetPasswordForm from "../../components/Forms/ForgetPasswordForm";
 import Unlock from "../../public/unlock.svg";
 import LinkButton from "../../components/Buttons/LinkButton";
 import Loading from "../../public/loading.svg";
