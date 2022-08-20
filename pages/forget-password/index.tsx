@@ -14,7 +14,7 @@ interface IForgetPassword {
 }
 const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
   const [response, setResponse] = useState<ResponseData>({
-    status: "SUCCESS",
+    status: "INITIAL",
     message: "",
   });
 
@@ -52,14 +52,12 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
               response={response}
               updateResponse={updateResponse}
             />
-            {response.status === "ERROR" && (
-              <p className="font-bold text-2xl text-center">
-                {response.message}
-              </p>
-            )}
           </>
         )}
       </div>
+      {response.status === "ERROR" && (
+        <p className="font-bold text-2xl text-center">{response.message}</p>
+      )}
     </div>
   );
 };

@@ -114,7 +114,7 @@ const ForgetPasswordForm = ({
         <Button
           type="submit"
           disabled={isButtonDisabled}
-          className="text-xl mt-10"
+          className="text-xl mt-11"
         >
           Submit
         </Button>
