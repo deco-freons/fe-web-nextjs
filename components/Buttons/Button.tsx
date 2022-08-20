@@ -1,4 +1,4 @@
-import { Color } from "../configs/types";
+import { Color } from "../../configs/types";
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   colorType?: Color;

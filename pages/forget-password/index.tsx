@@ -5,7 +5,8 @@ import verifyToken from "../../helpers/verifyToken";
 import { ResponseData, Status } from "../../configs/types";
 import ForgetPasswordForm from "../../components/Forms/ForgetPasswordForm";
 import Unlock from "../../public/unlock.svg";
-import Button from "../../components/Button";
+import LinkButton from "../../components/Buttons/LinkButton";
+import Loading from "../../public/loading.svg";
 
 interface IForgetPassword {
   userId: string | number;
@@ -13,7 +14,7 @@ interface IForgetPassword {
 }
 const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
   const [response, setResponse] = useState<ResponseData>({
-    status: "SUCCESS",
+    status: "INITIAL",
     message: "",
   });
 
@@ -24,11 +25,26 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
   return (
     <div className="h-full flex flex-col justify-center items-center gap-8">
       <div
-        className={`bg-neutral-100 px-7 pb-10 flex flex-col gap-12 ${
+        className={`bg-neutral-100 px-7 flex flex-col gap-12 min-h-[420px] ${
           response.status === "SUCCESS" ? "sm:px-16" : "sm:px-10 "
-        } pt-5 rounded-[40px] sm:pb-14 text-neutral-800 shadow-xl w-full sm:w-[426px]`}
+        } py-5 rounded-[40px] text-neutral-800 shadow-xl w-full sm:w-[426px]`}
       >
-        {response.status !== "SUCCESS" ? (
+        {response.status === "LOADING" ? (
+          <Loading className="stroke-primary-400 w-16 h-16 animate-spin m-auto text-primary-400" />
+        ) : response.status === "SUCCESS" ? (
+          <>
+            <Unlock className="w-32 h-32 mx-auto" />
+            <p className=" text-3xl font-bold text-center text-neutral-900">
+              Your password has been reset
+            </p>
+            <LinkButton
+              href="decofreonsfe://app/login"
+              className="w-full text-xl font-bold py-2.5"
+            >
+              Sign In
+            </LinkButton>
+          </>
+        ) : (
           <>
             <ForgetPasswordForm
               emailToken={emailToken}
@@ -41,15 +57,6 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
                 {response.message}
               </p>
             )}
-          </>
-        ) : (
-          <>
-            <Unlock className="w-32 h-32 mx-auto" />
-
-            <p className=" text-3xl font-bold text-center text-neutral-900">
-              Your password has been reset
-            </p>
-            <Button className="w-full">Sign In</Button>
           </>
         )}
       </div>

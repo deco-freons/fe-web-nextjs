@@ -7,7 +7,7 @@ import { passwordRegex } from "../../configs/regexes";
 import { ResponseData, Status } from "../../configs/types";
 import ApiService from "../../network/apiService";
 import errorHandler from "../../network/errorHandler";
-import Button from "../Button";
+import Button from "../Buttons/Button";
 import PasswordInput from "./PasswordInput";
 
 type ForgetPasswordInputKeys = keyof IForgetPasswordInputs;

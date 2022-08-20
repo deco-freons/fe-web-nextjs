@@ -10,7 +10,7 @@ import {
   IForgetPasswordResponse,
   IVerifyAccountResponse,
 } from "../../configs/interfaces";
-import Button from "../../components/Button";
+import Button from "../../components/Buttons/Button";
 
 interface IVerify {
   userId: string | number;
