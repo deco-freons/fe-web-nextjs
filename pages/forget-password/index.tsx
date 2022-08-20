@@ -14,7 +14,7 @@ interface IForgetPassword {
 }
 const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
   const [response, setResponse] = useState<ResponseData>({
-    status: "INITIAL",
+    status: "SUCCESS",
     message: "",
   });
 
@@ -33,7 +33,7 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
           <Loading className="stroke-primary-400 w-16 h-16 animate-spin m-auto text-primary-400" />
         ) : response.status === "SUCCESS" ? (
           <>
-            <Unlock className="w-32 h-32 mx-auto" />
+            <Unlock className="w-32 h-32 mx-auto fill-primary-400" />
             <p className=" text-3xl font-bold text-center text-neutral-900">
               Your password has been reset
             </p>
