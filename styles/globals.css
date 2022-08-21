@@ -7,13 +7,9 @@
 
 @layer base {
 
-
-
   html {
     @apply h-full;
   }
-
-
 
   body {
     @apply bg-gradient-to-b from-primary-400 via-primary-400 to-neutral-800 text-neutral-100 h-full;
