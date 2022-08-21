@@ -23,6 +23,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
     status: "LOADING",
     message: "",
   });
+
   const [isFirstLoaded, setisFirstLoaded] = useState(true);
 
   useEffect(() => {
