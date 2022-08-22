@@ -1,5 +1,4 @@
 import { GetServerSideProps, NextPage } from "next";
-import MailResponse from "../../components/MailResponse";
 import { ResponseData } from "../../configs/types";
 import { useEffect, useState } from "react";
 import verifyUserId from "../../helpers/verifyUserId";
@@ -11,6 +10,8 @@ import {
   IVerifyAccountResponse,
 } from "../../configs/interfaces";
 import Button from "../../components/Buttons/Button";
+import LinkButton from "../../components/Buttons/LinkButton";
+import MailResponseIcon from "../../components/MailResponseIcon";
 
 interface IVerify {
   userId: string | number;
@@ -22,7 +23,8 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
     status: "LOADING",
     message: "",
   });
-  const [showButton, setShowButton] = useState<boolean>(false);
+
+  const [isFirstLoaded, setisFirstLoaded] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -40,9 +42,10 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
           ? errData.message
           : "Something Went Wrong";
         if (errData?.statusCode === 401) {
-          setShowButton(true);
+          setResponse({ status: "EXPIRED", message });
+        } else {
+          setResponse({ status: "ERROR", message });
         }
-        setResponse({ status: "ERROR", message });
       }
     };
 
@@ -55,8 +58,9 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
 
   const handleReverify = async () => {
     try {
+      setisFirstLoaded(false);
       setResponse({ status: "LOADING", message: "" });
-      setShowButton(false);
+
       const response = await ApiService.resendVerifyAccount({
         token: emailToken,
         userID: userId,
@@ -73,16 +77,28 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <MailResponse status={response.status} message={response.message} />
-      {showButton && (
-        <Button
-          colorType="inverse"
-          className="mt-12 text-xl py-3 px-3"
-          onClick={handleReverify}
-        >
-          Re-verify Account
-        </Button>
-      )}
+      <div
+        className={`bg-neutral-100 px-7 flex flex-col items-center ${
+          response.status === "SUCCESS" && isFirstLoaded
+            ? "justify-between"
+            : "justify-center"
+        } gap-12 min-h-[420px] sm:px-16 py-7 rounded-[40px] text-neutral-800 shadow-xl w-full sm:w-[426px]`}
+      >
+        <MailResponseIcon status={response.status} />
+        <p className="text-xl sm:text-2xl font-bold text-center">
+          {response.message}
+        </p>
+        {response.status === "SUCCESS" && isFirstLoaded && (
+          <LinkButton href="decofreonsfe://app/test" className="w-full text-xl">
+            Sign In
+          </LinkButton>
+        )}
+        {response.status === "EXPIRED" && (
+          <Button className="w-full text-xl" onClick={handleReverify}>
+            Re-send verification Email
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

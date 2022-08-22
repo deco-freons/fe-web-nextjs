@@ -1,4 +1,4 @@
-export type Status = "SUCCESS" | "ERROR" | "LOADING" | "INITIAL";
+export type Status = "SUCCESS" | "ERROR" | "LOADING" | "INITIAL" | "EXPIRED";
 
 export type Color = "primary" | "inverse";
 
