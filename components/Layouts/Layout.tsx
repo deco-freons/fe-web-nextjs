@@ -7,7 +7,6 @@ interface ILayout {
 const Layout = ({ children }: ILayout) => {
   return (
     <>
-      {/* <Navbar /> */}
       <main className="container h-full">{children}</main>
     </>
   );

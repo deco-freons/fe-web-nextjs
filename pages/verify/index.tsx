@@ -12,6 +12,7 @@ import {
 import Button from "../../components/Buttons/Button";
 import LinkButton from "../../components/Buttons/LinkButton";
 import MailResponseIcon from "../../components/MailResponseIcon";
+import Head from "next/head";
 
 interface IVerify {
   userId: string | number;
@@ -77,6 +78,10 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
+      <Head>
+        <title>Email Verification</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div
         className={`bg-neutral-100 px-7 flex flex-col items-center ${
           response.status === "SUCCESS" && isFirstLoaded
