@@ -79,8 +79,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
   return (
     <div className="h-full flex flex-col justify-center items-center">
       <Head>
-        <title>Email Verification</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title key="title">Email Verification</title>
       </Head>
       <div
         className={`bg-neutral-100 px-7 flex flex-col items-center ${

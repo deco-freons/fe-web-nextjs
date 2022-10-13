@@ -26,8 +26,7 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
   return (
     <div className="h-full flex flex-col justify-center items-center gap-8">
       <Head>
-        <title>Forget Password</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title key="title">Forget Password</title>
       </Head>
 
       <div
