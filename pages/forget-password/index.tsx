@@ -7,6 +7,7 @@ import ForgetPasswordForm from "../../components/Forms/ForgetPasswordForm";
 import Unlock from "../../public/unlock.svg";
 import LinkButton from "../../components/Buttons/LinkButton";
 import Loading from "../../public/loading.svg";
+import Head from "next/head";
 
 interface IForgetPassword {
   userId: string | number;
@@ -24,8 +25,12 @@ const ForgetPassword: NextPage<IForgetPassword> = ({ userId, emailToken }) => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-8">
+      <Head>
+        <title key="title">Reset Password</title>
+      </Head>
+
       <div
-        className={`bg-neutral-100 px-7 flex flex-col gap-12 min-h-[420px] ${
+        className={`bg-neutral-100 px-7 flex flex-col gap-12 min-h-[380px] ${
           response.status === "SUCCESS" ? "sm:px-16" : "sm:px-10 "
         } py-5 rounded-[40px] text-neutral-800 shadow-xl w-full sm:w-[426px]`}
       >
