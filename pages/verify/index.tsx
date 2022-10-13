@@ -13,6 +13,7 @@ import Button from "../../components/Buttons/Button";
 import LinkButton from "../../components/Buttons/LinkButton";
 import MailResponseIcon from "../../components/MailResponseIcon";
 import Head from "next/head";
+import Card from "../../components/Layouts/Card";
 
 interface IVerify {
   userId: string | number;
@@ -81,12 +82,14 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
       <Head>
         <title key="title">Email Verification</title>
       </Head>
-      <div
-        className={`bg-neutral-100 px-7 flex flex-col items-center ${
-          response.status === "SUCCESS" && isFirstLoaded
-            ? "justify-between"
-            : "justify-center"
-        } gap-12 min-h-[420px] sm:px-16 py-7 rounded-[40px] text-neutral-800 shadow-xl w-full sm:w-[426px]`}
+      <Card
+        className={`items-center
+          ${
+            response.status === "SUCCESS" && isFirstLoaded
+              ? "justify-between"
+              : "justify-center"
+          }
+        `}
       >
         <MailResponseIcon status={response.status} />
         <p className="text-xl sm:text-2xl font-bold text-center">
@@ -102,7 +105,7 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
             Re-send verification Email
           </Button>
         )}
-      </div>
+      </Card>
     </div>
   );
 };
