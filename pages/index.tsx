@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Logo from "../public/logo.svg";
 import GooglePlayBadge from "../public/google-play-badge.png";
-import AppStoreBage from "../public/app-store-badge.svg";
+import AppStoreBadge from "../public/app-store-badge.svg";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
             priority={true}
           />
         </div>
-        <AppStoreBage className="w-[7.5rem] sm:w-40 h-14 ml-2 sm:ml-4 cursor-pointer" />
+        <AppStoreBadge className="w-[7.5rem] sm:w-40 h-14 ml-2 sm:ml-4 cursor-pointer" />
       </div>
     </div>
   );

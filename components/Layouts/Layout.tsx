@@ -10,6 +10,7 @@ const Layout = ({ children }: ILayout) => {
     <>
       <Head>
         <title key="title">Gatherly</title>
+        <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
