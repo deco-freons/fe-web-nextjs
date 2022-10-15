@@ -13,6 +13,18 @@ This repository contains the code base for web application that handles email ve
 - NextJs
 - TailwindCSS
 
+## Folder Structure
+<pre>
+├── components: reusable components
+├── configs: common configs
+├── helpers: helper/utility functions 
+├── network: networking configuration
+├── pages: web pages following <a href="https://nextjs.org/docs/basic-features/pages">NextJs pages guide </a>
+├── public: assets
+└── styles: css files
+</pre>
+
+
 ## Getting Started
 
 ### Prerequisites
