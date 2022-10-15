@@ -1,34 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gatherly Frontend Web
+
+![Gatherly](readme_images/logo.png)
+
+## About Gatherly
+
+Gatherly is a mobile based application, which helps socially isolated young people to join events and socialise. Gatherly shows events around the user based on their interests and the user can swipe left or right on the events to either skip or join the events. They can also see the event details and the number of participants before joining an event to make sure they are comfortable when attending the events. Gatherly also provides search feature for people that wants to schedule events beforehand.
+
+## About the Repository
+This repository contains the code base for web application that handles email verification and password reset
+
+## Technology Stack
+- NextJs
+- TailwindCSS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+Before installing the project, make sure you have [Node](https://nodejs.org/en/download/) installed
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/deco-freons/fe-web-nextjs.git 
+   ```
+2. Install package dependencies in `package.json`
+   ```sh
+   npm install
+   # or
+   yarn
+   ```
+3. Create `.env.local` file and write
+   ```sh
+    NEXT_PUBLIC_BASE_URL = YOUR_BACKEND_URL
+   ```
+
+### Running the Project
+
+To run the project
+
+```sh
 npm run dev
 # or
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The project will run on [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Building the Project
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+To build project
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+npm run build
+# or
+yarn build
+```
 
-## Learn More
+### Running built project
 
-To learn more about Next.js, take a look at the following resources:
+To run the built project
+```sh
+npm start
+# or
+yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
