@@ -96,7 +96,10 @@ const Verify: NextPage<IVerify> = ({ userId, emailToken }) => {
           {response.message}
         </p>
         {response.status === "SUCCESS" && isFirstLoaded && (
-          <LinkButton href="decofreonsfe://app/test" className="w-full text-xl">
+          <LinkButton
+            href="decofreonsfe://app/login"
+            className="w-full text-xl"
+          >
             Sign In
           </LinkButton>
         )}
